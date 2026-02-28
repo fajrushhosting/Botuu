@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guild Glory Bot - Auto Push Point Free Fire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 5px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(102, 126, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+
+        .logo-text {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+        }
+
+        .nav-links a.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 100px auto 40px;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102,126,234,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(102,126,234,0.5);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(102,126,234,0.5); }
+            50% { text-shadow: 0 0 40px rgba(102,126,234,0.8); }
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        /* Stats Container */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #667eea;
+        }
+
+        .stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .stat-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        /* Bot Dashboard */
+        .bot-dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .bot-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .bot-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .bot-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+        }
+
+        .bot-info h2 {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .bot-info p {
+            color: #667eea;
+            font-size: 0.9em;
+        }
+
+        /* Bot Status */
+        .bot-status {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .status-label {
+            color: #ccc;
+        }
+
+        .status-value {
+            color: white;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge-idle {
+            background: #f59e0b;
+            color: white;
+        }
+
+        /* Bot List */
+        .bot-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .bot-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .bot-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #667eea;
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .bot-details {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .bot-name {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .bot-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8em;
+            color: #999;
+        }
+
+        .bot-points {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .bot-action {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .bot-action:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(102,126,234,0.5);
+        }
+
+        .bot-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .panel-title {
+            color: white;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .panel-title span {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .control-item:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        .control-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .control-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .control-desc {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        /* Strategy Settings */
+        .strategy-settings {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .strategy-title {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .strategy-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .strategy-option {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-option:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .strategy-option.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .strategy-option .label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .strategy-option .value {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        /* Add Bot Form */
+        .add-bot-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .form-title {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-weight: 500;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #666;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Message Box */
+        .message-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .message-box.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid #10b981;
+            display: block;
+        }
+
+        .message-box.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            display: block;
+        }
+
+        .message-box.info {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
+            display: block;
+        }
+
+        /* Push Activity */
+        .push-activity {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .activity-title {
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .activity-filter {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .activity-table th {
+            text-align: left;
+            padding: 15px;
+            color: #ccc;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .activity-table td {
+            padding: 12px 15px;
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .activity-table tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .badge-success {
+            background: #10b981;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        .badge-warning {
+            background: #f59e0b;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 20, 0.95);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #999;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #666;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bot-dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .strategy-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🤖</div>
+                <span class="logo-text">Guild Glory Bot</span>
+            </div>
+            <div class="nav-links">
+                <a href="#dashboard" class="active">Dashboard</a>
+                <a href="#bots">Bot Akun</a>
+                <a href="#control">Control Panel</a>
+                <a href="#activity">Push Activity</a>
+                <a href="#add-bot">Tambah Bot</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>🤖 AUTO PUSH POINT BOT 🤖</h1>
+                <p>Sistem Bot Akun Free Fire untuk Push Point Guild Otomatis • 24/7 Active • Smart Strategy • Real-time Monitoring</p>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">🤖</div>
+                        <span class="stat-value" id="totalBots">24</span>
+                        <span class="stat-label">Total Bot Aktif</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <span class="stat-value" id="activePushes">12</span>
+                        <span class="stat-label">Sedang Push</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <span class="stat-value" id="totalPoints">45.6K</span>
+                        <span class="stat-label">Points Hari Ini</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <span class="stat-value" id="guildRank">#8</span>
+                        <span class="stat-label">Ranking Guild</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bot Dashboard -->
+        <div id="dashboard" class="bot-dashboard">
+            <!-- Bot Status Card -->
+            <div class="bot-card">
+                <div class="bot-header">
+                    <div class="bot-icon">📊</div>
+                    <div class="bot-info">
+                        <h2>Bot Status Overview</h2>
+                        <p>Real-time monitoring</p>
+                    </div>
+                </div>
+
+                <div class="bot-status">
+                    <div class="status-row">
+                        <span class="status-label">System Status</span>
+                        <span class="status-badge badge-active">● Online</span>
+                    </div>
+                    <div class="status-row">
+                        <span class="status-label">Active Bots</span>
+                        <span class="status-value" id="activeBotsCount">18 / 24</span>
+                    </div>
+                    <div class="status-row">
+                        <span class="status-label">Queue Position</span>
+                        <span class="status-value">#3</span>
+                    </div>
+                    <div class="status-row">
+                        <span class="status-label">Est. Points/Hour</span>
+                        <span class="status-value">2,500</span>
+                    </div>
+                    <div class="status-row">
+                        <span class="status-label">Success Rate</span>
+                        <span class="status-value">98.5%</span>
+                    </div>
+                </div>
+
+                <div class="strategy-settings">
+                    <div class="strategy-title">🎯 Push Strategy</div>
+                    <div class="strategy-options">
+                        <div class="strategy-option active" onclick="setStrategy('aggressive')">
+                            <span class="label">Aggressive</span>
+                            <span class="value">High risk, high reward</span>
+                        </div>
+                        <div class="strategy-option" onclick="setStrategy('balanced')">
+                            <span class="label">Balanced</span>
+                            <span class="value">Medium risk, stable</span>
+                        </div>
+                        <div class="strategy-option" onclick="setStrategy('safe')">
+                            <span class="label">Safe Mode</span>
+                            <span class="value">Low risk, consistent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Bots List -->
+            <div class="bot-card">
+                <div class="bot-header">
+                    <div class="bot-icon">🤖</div>
+                    <div class="bot-info">
+                        <h2>Active Bot Akun</h2>
+                        <p>24/7 auto push system</p>
+                    </div>
+                </div>
+
+                <div class="bot-list" id="botList">
+                    <!-- Akan diisi dengan JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Control Panel -->
+        <div id="control" class="control-panel">
+            <h2 class="panel-title"><span>⚡ BOT CONTROL PANEL ⚡</span></h2>
+            
+            <div class="control-grid">
+                <div class="control-item" onclick="controlBot('start-all')">
+                    <div class="control-icon">▶️</div>
+                    <div class="control-title">Start All Bots</div>
+                    <div class="control-desc">Aktifkan semua bot</div>
+                </div>
+                
+                <div class="control-item" onclick="controlBot('stop-all')">
+                    <div class="control-icon">⏸️</div>
+                    <div class="control-title">Stop All Bots</div>
+                    <div class="control-desc">Hentikan semua bot</div>
+                </div>
+                
+                <div class="control-item" onclick="controlBot('restart-all')">
+                    <div class="control-icon">🔄</div>
+                    <div class="control-title">Restart Bots</div>
+                    <div class="control-desc">Restart sistem bot</div>
+                </div>
+                
+                <div class="control-item" onclick="controlBot('priority')">
+                    <div class="control-icon">⚡</div>
+                    <div class="control-title">Priority Mode</div>
+                    <div class="control-desc">Prioritas push point</div>
+                </div>
+                
+                <div class="control-item" onclick="controlBot('schedule')">
+                    <div class="control-icon">📅</div>
+                    <div class="control-title">Auto Schedule</div>
+                    <div class="control-desc">Atur jadwal push</div>
+                </div>
+                
+                <div class="control-item" onclick="controlBot('report')">
+                    <div class="control-icon">📊</div>
+                    <div class="control-title">Generate Report</div>
+                    <div class="control-desc">Lihat laporan lengkap</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Bot Form -->
+        <div id="add-bot" class="add-bot-form">
+            <h2 class="form-title">➕ TAMBAH BOT AKUN BARU</h2>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="botUserid">User ID Free Fire</label>
+                    <input type="text" id="botUserid" placeholder="Masukkan User ID bot" maxlength="12">
+                </div>
+
+                <div class="input-group">
+                    <label for="botNickname">Nickname Bot</label>
+                    <input type="text" id="botNickname" placeholder="Masukkan nickname bot">
+                </div>
+
+                <div class="input-group">
+                    <label for="botLevel">Level Bot</label>
+                    <select id="botLevel">
+                        <option value="">Pilih Level</option>
+                        <option value="50-60">Level 50-60</option>
+                        <option value="61-70">Level 61-70</option>
+                        <option value="71-80">Level 71-80</option>
+                        <option value="80+">Level 80+</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="botRole">Role Bot</label>
+                    <select id="botRole">
+                        <option value="">Pilih Role</option>
+                        <option value="rusher">Rusher</option>
+                        <option value="support">Support</option>
+                        <option value="sniper">Sniper</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="botStrategy">Push Strategy</label>
+                    <select id="botStrategy">
+                        <option value="aggressive">Aggressive (High Risk)</option>
+                        <option value="balanced">Balanced (Recommended)</option>
+                        <option value="safe">Safe Mode (Low Risk)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="botSchedule">Schedule</label>
+                    <select id="botSchedule">
+                        <option value="24/7">24/7 Full Time</option>
+                        <option value="prime">Prime Hours (19:00-23:00)</option>
+                        <option value="off-peak">Off Peak (23:00-07:00)</option>
+                        <option value="custom">Custom Schedule</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn" id="addBotBtn" onclick="addBot()">
+                <span id="addBotText">TAMBAH BOT AKUN</span>
+            </button>
+
+            <div id="botMessageBox" class="message-box"></div>
+        </div>
+
+        <!-- Push Activity -->
+        <div id="activity" class="push-activity">
+            <div class="activity-header">
+                <h2 class="activity-title">📊 REAL-TIME PUSH ACTIVITY</h2>
+                <div class="activity-filter">
+                    <button class="filter-btn active" onclick="filterActivity('all')">All</button>
+                    <button class="filter-btn" onclick="filterActivity('success')">Success</button>
+                    <button class="filter-btn" onclick="filterActivity('pending')">Pending</button>
+                </div>
+            </div>
+
+            <table class="activity-table">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Bot Name</th>
+                        <th>Match Type</th>
+                        <th>Points Earned</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="activityTable">
+                    <!-- Akan diisi dengan JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang Guild Glory Bot</h3>
+                <p>Sistem bot akun otomatis untuk membantu guild mencapai ranking tertinggi di Free Fire dengan teknologi push point cerdas 24/7.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#dashboard">Dashboard</a></p>
+                <p><a href="#bots">Bot Akun</a></p>
+                <p><a href="#control">Control Panel</a></p>
+                <p><a href="#activity">Push Activity</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Support</h3>
+                <p>📧 support@guildglorybot.com</p>
+                <p>📱 +62 812-3456-7890</p>
+                <p>💬 Live Chat 24/7</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2024 Guild Glory Bot - Auto Push Point System for Free Fire Guilds</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">This is an automated bot system for guild point farming in Free Fire</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data dummy untuk bot akun
+        const botAccounts = [
+            { id: 1, name: 'BotAlpha', level: 75, role: 'Rusher', points: 12500, status: 'active', userid: '1234567890' },
+            { id: 2, name: 'BotBeta', level: 72, role: 'Sniper', points: 10800, status: 'active', userid: '1234567891' },
+            { id: 3, name: 'BotGamma', level: 78, role: 'Support', points: 9500, status: 'idle', userid: '1234567892' },
+            { id: 4, name: 'BotDelta', level: 71, role: 'Flexible', points: 11200, status: 'active', userid: '1234567893' },
+            { id: 5, name: 'BotEpsilon', level: 74, role: 'Rusher', points: 9800, status: 'active', userid: '1234567894' },
+            { id: 6, name: 'BotZeta', level: 73, role: 'Sniper', points: 8900, status: 'idle', userid: '1234567895' }
+        ];
+
+        // Data dummy untuk push activity
+        const pushActivities = [
+            { time: '10:23', bot: 'BotAlpha', match: 'Ranked', points: 245, status: 'success' },
+            { time: '10:15', bot: 'BotBeta', match: 'Ranked', points: 198, status: 'success' },
+            { time: '10:08', bot: 'BotGamma', match: 'Classic', points: 156, status: 'success' },
+            { time: '09:55', bot: 'BotDelta', match: 'Ranked', points: 289, status: 'success' },
+            { time: '09:42', bot: 'BotEpsilon', match: 'Ranked', points: 0, status: 'pending' },
+            { time: '09:30', bot: 'BotZeta', match: 'Classic', points: 178, status: 'success' },
+            { time: '09:18', bot: 'BotAlpha', match: 'Ranked', points: 234, status: 'success' },
+            { time: '09:05', bot: 'BotBeta', match: 'Ranked', points: 267, status: 'success' }
+        ];
+
+        // Load data saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBotList();
+            loadActivityTable();
+            startRealTimeSimulation();
+        });
+
+        // Fungsi memuat daftar bot
+        function loadBotList() {
+            const botList = document.getElementById('botList');
+            botList.innerHTML = '';
+            
+            botAccounts.forEach(bot => {
+                const botItem = document.createElement('div');
+                botItem.className = 'bot-item';
+                botItem.innerHTML = `
+                    <div style="display: flex; align-items: center; flex: 1;">
+                        <div class="bot-avatar">${bot.name.charAt(0)}</div>
+                        <div class="bot-details">
+                            <div class="bot-name">${bot.name}</div>
+                            <div class="bot-meta">
+                                <span>Lv.${bot.level}</span>
+                                <span>${bot.role}</span>
+                                <span>ID: ${bot.userid}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align: right; margin-right: 15px;">
+                        <span class="bot-points">${bot.points.toLocaleString()} pts</span>
+                        <div style="font-size: 0.8em; color: ${bot.status === 'active' ? '#10b981' : '#f59e0b'}">
+                            ${bot.status === 'active' ? '● Active' : '○ Idle'}
+                        </div>
+                    </div>
+                    <button class="bot-action" onclick="toggleBot(${bot.id})" ${bot.status === 'active' ? 'disabled' : ''}>
+                        ${bot.status === 'active' ? 'Running' : 'Start'}
+                    </button>
+                `;
+                botList.appendChild(botItem);
+            });
+        }
+
+        // Fungsi memuat activity table
+        function loadActivityTable(filter = 'all') {
+            const tbody = document.getElementById('activityTable');
+            tbody.innerHTML = '';
+            
+            let filtered = pushActivities;
+            if (filter !== 'all') {
+                filtered = pushActivities.filter(a => a.status === filter);
+            }
+            
+            filtered.forEach(activity => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${activity.time}</td>
+                    <td>${activity.bot}</td>
+                    <td>${activity.match}</td>
+                    <td style="color: #667eea; font-weight: 600;">+${activity.points}</td>
+                    <td><span class="badge-${activity.status === 'success' ? 'success' : 'warning'}">${activity.status}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Simulasi real-time
+        function startRealTimeSimulation() {
+            // Update total bots
+            setInterval(() => {
+                const totalBots = document.getElementById('totalBots');
+                const activePushes = document.getElementById('activePushes');
+                const totalPoints = document.getElementById('totalPoints');
+                const activeBotsCount = document.getElementById('activeBotsCount');
+                
+                // Random updates
+                const random = Math.floor(Math.random() * 5);
+                const currentBots = parseInt(totalBots.innerText);
+                const currentActive = parseInt(activePushes.innerText);
+                const currentPoints = parseFloat(totalPoints.innerText.replace('K', ''));
+                
+                totalBots.innerText = currentBots + (random % 2);
+                activePushes.innerText = currentActive + (random % 3) - 1;
+                totalPoints.innerText = (currentPoints + (Math.random() * 0.5)).toFixed(1) + 'K';
+                activeBotsCount.innerText = `${parseInt(activePushes.innerText)} / ${totalBots.innerText}`;
+                
+            }, 8000);
+        }
+
+        // Fungsi menambah bot
+        function addBot() {
+            const userid = document.getElementById('botUserid').value.trim();
+            const nickname = document.getElementById('botNickname').value.trim();
+            const level = document.getElementById('botLevel').value;
+            const role = document.getElementById('botRole').value;
+            const strategy = document.getElementById('botStrategy').value;
+            const schedule = document.getElementById('botSchedule').value;
+            const addBtn = document.getElementById('addBotBtn');
+            const btnText = document.getElementById('addBotText');
+
+            // Validasi
+            if (!userid || !nickname || !level || !role) {
+                showBotMessage('Harap lengkapi semua data bot!', 'error');
+                return;
+            }
+
+            if (userid.length < 8 || !/^\d+$/.test(userid)) {
+                showBotMessage('User ID tidak valid! Harus 8-12 digit angka.', 'error');
+                return;
+            }
+
+            // Simulasi proses
+            addBtn.disabled = true;
+            btnText.innerHTML = '<span class="spinner"></span> MENAMBAHKAN BOT...';
+
+            setTimeout(() => {
+                // Simpan ke localStorage
+                const bots = JSON.parse(localStorage.getItem('guildBotAccounts') || '[]');
+                bots.push({
+                    userid: userid,
+                    nickname: nickname,
+                    level: level,
+                    role: role,
+                    strategy: strategy,
+                    schedule: schedule,
+                    points: 0,
+                    status: 'idle',
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('guildBotAccounts', JSON.stringify(bots));
+
+                showBotMessage(`
+                    ✅ BOT AKUN BERHASIL DITAMBAHKAN!<br><br>
+                    Nickname: ${nickname}<br>
+                    User ID: ${userid}<br>
+                    Role: ${role}<br>
+                    Strategy: ${strategy}<br><br>
+                    ⚡ Bot akan aktif dalam 5 menit
+                `, 'success');
+
+                // Reset form
+                setTimeout(() => {
+                    document.getElementById('botUserid').value = '';
+                    document.getElementById('botNickname').value = '';
+                    document.getElementById('botLevel').value = '';
+                    document.getElementById('botRole').value = '';
+                    addBtn.disabled = false;
+                    btnText.innerHTML = 'TAMBAH BOT AKUN';
+                }, 3000);
+
+            }, 2000);
+        }
+
+        // Fungsi toggle bot
+        function toggleBot(botId) {
+            const bot = botAccounts.find(b => b.id === botId);
+            if (bot) {
+                bot.status = bot.status === 'active' ? 'idle' : 'active';
+                loadBotList();
+                showBotMessage(`Bot ${bot.name} ${bot.status === 'active' ? 'diaktifkan' : 'dihentikan'}!`, 'info');
+            }
+        }
+
+        // Fungsi set strategy
+        function setStrategy(strategy) {
+            document.querySelectorAll('.strategy-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.target.closest('.strategy-option').classList.add('active');
+            
+            const strategies = {
+                aggressive: 'Aggressive Mode: High risk, high reward',
+                balanced: 'Balanced Mode: Medium risk, stable points',
+                safe: 'Safe Mode: Low risk, consistent points'
+            };
+            
+            showBotMessage(`✅ Strategy changed to ${strategies[strategy]}`, 'info');
+        }
+
+        // Fungsi control bot
+        function controlBot(action) {
+            const actions = {
+                'start-all': 'Semua bot akan diaktifkan',
+                'stop-all': 'Semua bot akan dihentikan',
+                'restart-all': 'System restart in progress',
+                'priority': 'Priority mode activated',
+                'schedule': 'Auto scheduler configured',
+                'report': 'Generating report...'
+            };
+            
+            showBotMessage(`✅ ${actions[action]}`, 'info');
+        }
+
+        // Fungsi filter activity
+        function filterActivity(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            loadActivityTable(filter);
+        }
+
+        // Fungsi menampilkan pesan
+        function showBotMessage(text, type) {
+            const messageBox = document.getElementById('botMessageBox');
+            messageBox.className = 'message-box ' + type;
+            messageBox.innerHTML = text;
+            
+            if (type === 'error') {
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
