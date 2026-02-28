@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guild Glory Bot - Auto Push Point Free Fire</title>
+    <title>Guild Point Booster - Free Fire Auto Point System</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: linear-gradient(135deg, #0a0f1e, #1a1f35, #0a0f1e);
             min-height: 100vh;
         }
 
@@ -23,24 +23,24 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #1a1a2e;
+            background: #1a1f35;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             border-radius: 5px;
         }
 
         /* Navbar */
         .navbar {
-            background: rgba(10, 10, 20, 0.95);
+            background: rgba(10, 15, 30, 0.95);
             backdrop-filter: blur(10px);
             padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
         }
 
         .nav-container {
@@ -60,7 +60,7 @@
         .logo-icon {
             width: 45px;
             height: 45px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -70,16 +70,16 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(102, 126, 234, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
         .logo-text {
             color: white;
             font-size: 1.8rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            background: linear-gradient(45deg, #ffd700, #ffa500, #ffd700);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% 200%;
@@ -104,17 +104,16 @@
             transition: all 0.3s ease;
             padding: 8px 15px;
             border-radius: 20px;
-            position: relative;
         }
 
         .nav-links a:hover {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
         }
 
         .nav-links a.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #0a0f1e;
         }
 
         /* Main Container */
@@ -131,7 +130,8 @@
             border-radius: 30px;
             padding: 60px;
             margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
@@ -140,10 +140,10 @@
             content: '';
             position: absolute;
             top: -50%;
-            right: -50%;
+            left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(102,126,234,0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
             animation: rotate 20s linear infinite;
         }
 
@@ -155,27 +155,27 @@
         .hero-content {
             position: relative;
             z-index: 1;
-            text-align: center;
-            color: white;
         }
 
         .hero h1 {
-            font-size: 4em;
+            font-size: 3.5em;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(102,126,234,0.5);
+            background: linear-gradient(135deg, #ffd700, #ffa500, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             animation: glow 2s ease-in-out infinite;
         }
 
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px rgba(102,126,234,0.5); }
-            50% { text-shadow: 0 0 40px rgba(102,126,234,0.8); }
+            0%, 100% { text-shadow: 0 0 20px rgba(255,215,0,0.5); }
+            50% { text-shadow: 0 0 40px rgba(255,215,0,0.8); }
         }
 
         .hero p {
-            font-size: 1.3em;
+            color: #ccc;
+            font-size: 1.2em;
             max-width: 800px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
+            margin: 0 auto 30px;
         }
 
         /* Stats Container */
@@ -187,34 +187,18 @@
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             padding: 25px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,215,0,0.2);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .stat-card:hover::before {
-            left: 100%;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            border-color: #667eea;
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255,215,0,0.2);
         }
 
         .stat-icon {
@@ -225,7 +209,7 @@
         .stat-value {
             font-size: 2.2em;
             font-weight: bold;
-            color: #667eea;
+            color: #ffd700;
             display: block;
             margin-bottom: 5px;
         }
@@ -235,303 +219,40 @@
             font-size: 0.9em;
         }
 
-        /* Bot Dashboard */
-        .bot-dashboard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .bot-card {
+        /* Main Guild Setup */
+        .guild-setup {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .bot-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .bot-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-        }
-
-        .bot-info h2 {
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .bot-info p {
-            color: #667eea;
-            font-size: 0.9em;
-        }
-
-        /* Bot Status */
-        .bot-status {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .status-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .status-label {
-            color: #ccc;
-        }
-
-        .status-value {
-            color: white;
-            font-weight: 600;
-        }
-
-        .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-        }
-
-        .badge-active {
-            background: #10b981;
-            color: white;
-        }
-
-        .badge-idle {
-            background: #f59e0b;
-            color: white;
-        }
-
-        /* Bot List */
-        .bot-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .bot-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .bot-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: #667eea;
-        }
-
-        .bot-avatar {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-
-        .bot-details {
-            flex: 1;
-            margin-left: 15px;
-        }
-
-        .bot-name {
-            color: white;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .bot-meta {
-            display: flex;
-            gap: 15px;
-            font-size: 0.8em;
-            color: #999;
-        }
-
-        .bot-points {
-            color: #667eea;
-            font-weight: 600;
-        }
-
-        .bot-action {
-            padding: 8px 15px;
-            border-radius: 8px;
-            border: none;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-        }
-
-        .bot-action:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(102,126,234,0.5);
-        }
-
-        .bot-action:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Control Panel */
-        .control-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 30px;
+            border-radius: 30px;
+            padding: 40px;
             margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,215,0,0.2);
         }
 
-        .panel-title {
-            color: white;
-            font-size: 1.8em;
-            margin-bottom: 25px;
+        .section-title {
             text-align: center;
+            color: white;
+            font-size: 2.2em;
+            margin-bottom: 30px;
         }
 
-        .panel-title span {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .section-title span {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .control-grid {
+        .setup-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
-        .control-item {
+        .guild-input-card {
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-
-        .control-item:hover {
-            border-color: #667eea;
-            transform: translateY(-3px);
-        }
-
-        .control-icon {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .control-title {
-            color: white;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .control-desc {
-            color: #999;
-            font-size: 0.9em;
-        }
-
-        /* Strategy Settings */
-        .strategy-settings {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .strategy-title {
-            color: white;
-            margin-bottom: 15px;
-            font-size: 1.2em;
-        }
-
-        .strategy-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .strategy-option {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .strategy-option:hover {
-            background: rgba(102, 126, 234, 0.2);
-        }
-
-        .strategy-option.active {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .strategy-option .label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .strategy-option .value {
-            font-size: 0.8em;
-            opacity: 0.8;
-        }
-
-        /* Add Bot Form */
-        .add-bot-form {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 40px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .form-title {
-            color: white;
-            font-size: 2em;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,215,0,0.2);
         }
 
         .input-group {
@@ -541,54 +262,380 @@
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #ccc;
-            font-weight: 500;
+            color: #ffd700;
+            font-weight: 600;
         }
 
-        .input-group input, .input-group select {
+        .input-group input {
             width: 100%;
             padding: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255,215,0,0.2);
             border-radius: 10px;
             color: white;
             font-size: 1em;
             transition: all 0.3s ease;
         }
 
-        .input-group input:focus, .input-group select:focus {
-            border-color: #667eea;
+        .input-group input:focus {
+            border-color: #ffd700;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+            box-shadow: 0 0 0 3px rgba(255,215,0,0.1);
         }
 
         .input-group input::placeholder {
             color: #666;
         }
 
-        .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
+        .guild-preview {
+            background: rgba(255,215,0,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed #ffd700;
+        }
+
+        .preview-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            color: #ffd700;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .preview-id {
+            color: #ccc;
             font-size: 1.1em;
-            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .preview-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .preview-stat {
+            text-align: center;
+        }
+
+        .preview-stat .value {
+            display: block;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .preview-stat .label {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        /* Tumbal Accounts Section */
+        .tumbal-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .tumbal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .tumbal-title {
+            color: white;
+            font-size: 1.8em;
+        }
+
+        .add-tumbal-btn {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            color: #0a0f1e;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: bold;
             cursor: pointer;
-            width: 100%;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .btn:hover {
+        .add-tumbal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255,215,0,0.5);
+        }
+
+        .tumbal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tumbal-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,215,0,0.2);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tumbal-card:hover {
+            border-color: #ffd700;
+            transform: translateY(-3px);
+        }
+
+        .tumbal-card.active {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+
+        .tumbal-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .tumbal-name {
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .tumbal-id {
+            color: #ffd700;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .tumbal-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255,215,0,0.2);
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .tumbal-stat {
+            text-align: center;
+        }
+
+        .tumbal-stat .value {
+            display: block;
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .tumbal-stat .label {
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        .tumbal-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulseStatus 2s infinite;
+        }
+
+        @keyframes pulseStatus {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+
+        .status-indicator.idle {
+            background: #ff9800;
+        }
+
+        .status-text {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        .tumbal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tumbal-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-start {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-stop {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #666;
+            color: white;
+        }
+
+        .tumbal-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+            filter: brightness(1.1);
         }
 
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        /* Auto Play Settings */
+        .auto-play-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .setting-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .setting-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .setting-title {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .setting-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .setting-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .setting-option input[type="radio"] {
+            accent-color: #ffd700;
+        }
+
+        /* Point History */
+        .point-history {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid rgba(255,215,0,0.2);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .history-title {
+            color: white;
+            font-size: 1.8em;
+        }
+
+        .history-filter {
+            display: flex;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 20px;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #ffd700;
+            color: #0a0f1e;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th {
+            text-align: left;
+            padding: 15px;
+            color: #ffd700;
+            border-bottom: 2px solid rgba(255,215,0,0.2);
+        }
+
+        .history-table td {
+            padding: 12px 15px;
+            color: white;
+            border-bottom: 1px solid rgba(255,215,0,0.1);
+        }
+
+        .history-table tr:hover {
+            background: rgba(255,215,0,0.05);
+        }
+
+        .point-positive {
+            color: #4CAF50;
+            font-weight: bold;
         }
 
         /* Message Box */
@@ -600,114 +647,42 @@
         }
 
         .message-box.success {
-            background: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border: 1px solid #10b981;
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
             display: block;
         }
 
         .message-box.error {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid #ef4444;
+            background: rgba(244, 67, 54, 0.2);
+            color: #f44336;
+            border: 1px solid #f44336;
             display: block;
         }
 
-        .message-box.info {
-            background: rgba(59, 130, 246, 0.2);
-            color: #3b82f6;
-            border: 1px solid #3b82f6;
-            display: block;
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #ffd700;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
         }
 
-        /* Push Activity */
-        .push-activity {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .activity-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .activity-title {
-            color: white;
-            font-size: 1.5em;
-        }
-
-        .activity-filter {
-            display: flex;
-            gap: 10px;
-        }
-
-        .filter-btn {
-            padding: 8px 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            color: #ccc;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
-        .activity-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .activity-table th {
-            text-align: left;
-            padding: 15px;
-            color: #ccc;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .activity-table td {
-            padding: 12px 15px;
-            color: white;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .activity-table tr:hover {
-            background: rgba(255,255,255,0.02);
-        }
-
-        .badge-success {
-            background: #10b981;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-        }
-
-        .badge-warning {
-            background: #f59e0b;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Footer */
         .footer {
-            background: rgba(10, 10, 20, 0.95);
+            background: rgba(10, 15, 30, 0.95);
             color: white;
             padding: 50px 0 20px;
             margin-top: 60px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,215,0,0.2);
         }
 
         .footer-content {
@@ -720,7 +695,7 @@
         }
 
         .footer-section h3 {
-            color: #667eea;
+            color: #ffd700;
             margin-bottom: 20px;
         }
 
@@ -731,14 +706,14 @@
         }
 
         .footer-section a:hover {
-            color: #667eea;
+            color: #ffd700;
         }
 
         .copyright {
             text-align: center;
             padding-top: 30px;
             margin-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,215,0,0.2);
             color: #666;
         }
 
@@ -748,16 +723,17 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             
-            .bot-dashboard {
+            .setup-grid {
                 grid-template-columns: 1fr;
             }
             
-            .form-grid {
+            .settings-grid {
                 grid-template-columns: 1fr;
             }
             
-            .strategy-options {
-                grid-template-columns: 1fr;
+            .history-header {
+                flex-direction: column;
+                gap: 15px;
             }
         }
 
@@ -774,26 +750,10 @@
                 grid-template-columns: 1fr;
             }
             
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
+            .tumbal-header {
+                flex-direction: column;
+                gap: 15px;
             }
-        }
-
-        /* Loading Spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -802,15 +762,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">🤖</div>
-                <span class="logo-text">Guild Glory Bot</span>
+                <div class="logo-icon">⚡</div>
+                <span class="logo-text">Guild Point Booster</span>
             </div>
             <div class="nav-links">
-                <a href="#dashboard" class="active">Dashboard</a>
-                <a href="#bots">Bot Akun</a>
-                <a href="#control">Control Panel</a>
-                <a href="#activity">Push Activity</a>
-                <a href="#add-bot">Tambah Bot</a>
+                <a href="#setup">Setup Guild</a>
+                <a href="#tumbal">Akun Tumbal</a>
+                <a href="#settings">Pengaturan</a>
+                <a href="#history">Riwayat Point</a>
             </div>
         </div>
     </nav>
@@ -819,233 +778,218 @@
         <!-- Hero Section -->
         <div class="hero">
             <div class="hero-content">
-                <h1>🤖 AUTO PUSH POINT BOT 🤖</h1>
-                <p>Sistem Bot Akun Free Fire untuk Push Point Guild Otomatis • 24/7 Active • Smart Strategy • Real-time Monitoring</p>
+                <h1>⚡ AUTO POINT GUILD SYSTEM ⚡</h1>
+                <p>Tambahkan point guild Free Fire secara otomatis menggunakan akun tumbal • 24/7 Auto Play • Multi Account Support • Real-time Point Tracker</p>
                 
                 <div class="stats-container">
                     <div class="stat-card">
-                        <div class="stat-icon">🤖</div>
-                        <span class="stat-value" id="totalBots">24</span>
-                        <span class="stat-label">Total Bot Aktif</span>
+                        <div class="stat-icon">👥</div>
+                        <span class="stat-value" id="totalTumbal">12</span>
+                        <span class="stat-label">Total Akun Tumbal</span>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">⚡</div>
-                        <span class="stat-value" id="activePushes">12</span>
-                        <span class="stat-label">Sedang Push</span>
+                        <span class="stat-value" id="activeTumbal">8</span>
+                        <span class="stat-label">Sedang Bermain</span>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">📊</div>
-                        <span class="stat-value" id="totalPoints">45.6K</span>
-                        <span class="stat-label">Points Hari Ini</span>
+                        <span class="stat-value" id="todayPoints">15.6K</span>
+                        <span class="stat-label">Point Hari Ini</span>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">🏆</div>
-                        <span class="stat-value" id="guildRank">#8</span>
-                        <span class="stat-label">Ranking Guild</span>
+                        <div class="stat-icon">⏰</div>
+                        <span class="stat-value" id="totalHours">168</span>
+                        <span class="stat-label">Total Jam</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Bot Dashboard -->
-        <div id="dashboard" class="bot-dashboard">
-            <!-- Bot Status Card -->
-            <div class="bot-card">
-                <div class="bot-header">
-                    <div class="bot-icon">📊</div>
-                    <div class="bot-info">
-                        <h2>Bot Status Overview</h2>
-                        <p>Real-time monitoring</p>
-                    </div>
-                </div>
-
-                <div class="bot-status">
-                    <div class="status-row">
-                        <span class="status-label">System Status</span>
-                        <span class="status-badge badge-active">● Online</span>
-                    </div>
-                    <div class="status-row">
-                        <span class="status-label">Active Bots</span>
-                        <span class="status-value" id="activeBotsCount">18 / 24</span>
-                    </div>
-                    <div class="status-row">
-                        <span class="status-label">Queue Position</span>
-                        <span class="status-value">#3</span>
-                    </div>
-                    <div class="status-row">
-                        <span class="status-label">Est. Points/Hour</span>
-                        <span class="status-value">2,500</span>
-                    </div>
-                    <div class="status-row">
-                        <span class="status-label">Success Rate</span>
-                        <span class="status-value">98.5%</span>
-                    </div>
-                </div>
-
-                <div class="strategy-settings">
-                    <div class="strategy-title">🎯 Push Strategy</div>
-                    <div class="strategy-options">
-                        <div class="strategy-option active" onclick="setStrategy('aggressive')">
-                            <span class="label">Aggressive</span>
-                            <span class="value">High risk, high reward</span>
-                        </div>
-                        <div class="strategy-option" onclick="setStrategy('balanced')">
-                            <span class="label">Balanced</span>
-                            <span class="value">Medium risk, stable</span>
-                        </div>
-                        <div class="strategy-option" onclick="setStrategy('safe')">
-                            <span class="label">Safe Mode</span>
-                            <span class="value">Low risk, consistent</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Active Bots List -->
-            <div class="bot-card">
-                <div class="bot-header">
-                    <div class="bot-icon">🤖</div>
-                    <div class="bot-info">
-                        <h2>Active Bot Akun</h2>
-                        <p>24/7 auto push system</p>
-                    </div>
-                </div>
-
-                <div class="bot-list" id="botList">
-                    <!-- Akan diisi dengan JavaScript -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Control Panel -->
-        <div id="control" class="control-panel">
-            <h2 class="panel-title"><span>⚡ BOT CONTROL PANEL ⚡</span></h2>
+        <!-- Guild Setup Section -->
+        <div id="setup" class="guild-setup">
+            <h2 class="section-title"><span>🏆 SETUP GUILD TUJUAN</span></h2>
             
-            <div class="control-grid">
-                <div class="control-item" onclick="controlBot('start-all')">
-                    <div class="control-icon">▶️</div>
-                    <div class="control-title">Start All Bots</div>
-                    <div class="control-desc">Aktifkan semua bot</div>
+            <div class="setup-grid">
+                <div class="guild-input-card">
+                    <div class="input-group">
+                        <label>ID Guild Free Fire</label>
+                        <input type="text" id="targetGuildId" placeholder="Masukkan ID Guild tujuan" maxlength="12">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Nama Guild (Opsional)</label>
+                        <input type="text" id="targetGuildName" placeholder="Masukkan nama guild">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Target Point per Hari</label>
+                        <input type="number" id="targetPoints" placeholder="Contoh: 5000" value="5000">
+                    </div>
+                    
+                    <button class="add-tumbal-btn" style="width: 100%; justify-content: center;" onclick="setTargetGuild()">
+                        <span>🎯</span> SET GUILD TUJUAN
+                    </button>
                 </div>
                 
-                <div class="control-item" onclick="controlBot('stop-all')">
-                    <div class="control-icon">⏸️</div>
-                    <div class="control-title">Stop All Bots</div>
-                    <div class="control-desc">Hentikan semua bot</div>
-                </div>
-                
-                <div class="control-item" onclick="controlBot('restart-all')">
-                    <div class="control-icon">🔄</div>
-                    <div class="control-title">Restart Bots</div>
-                    <div class="control-desc">Restart sistem bot</div>
-                </div>
-                
-                <div class="control-item" onclick="controlBot('priority')">
-                    <div class="control-icon">⚡</div>
-                    <div class="control-title">Priority Mode</div>
-                    <div class="control-desc">Prioritas push point</div>
-                </div>
-                
-                <div class="control-item" onclick="controlBot('schedule')">
-                    <div class="control-icon">📅</div>
-                    <div class="control-title">Auto Schedule</div>
-                    <div class="control-desc">Atur jadwal push</div>
-                </div>
-                
-                <div class="control-item" onclick="controlBot('report')">
-                    <div class="control-icon">📊</div>
-                    <div class="control-title">Generate Report</div>
-                    <div class="control-desc">Lihat laporan lengkap</div>
+                <div class="guild-preview" id="guildPreview">
+                    <div class="preview-icon">👑</div>
+                    <div class="preview-name" id="previewName">-</div>
+                    <div class="preview-id" id="previewId">Belum ada guild dipilih</div>
+                    <div class="preview-stats">
+                        <div class="preview-stat">
+                            <span class="value" id="previewTarget">0</span>
+                            <span class="label">Target/hari</span>
+                        </div>
+                        <div class="preview-stat">
+                            <span class="value" id="previewCurrent">0</span>
+                            <span class="label">Terkumpul</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Add Bot Form -->
-        <div id="add-bot" class="add-bot-form">
-            <h2 class="form-title">➕ TAMBAH BOT AKUN BARU</h2>
+        <!-- Tumbal Accounts Section -->
+        <div id="tumbal" class="tumbal-section">
+            <div class="tumbal-header">
+                <h2 class="tumbal-title">👥 AKUN TUMBAL AKTIF</h2>
+                <button class="add-tumbal-btn" onclick="showAddTumbalForm()">
+                    <span>➕</span> TAMBAH AKUN TUMBAL
+                </button>
+            </div>
+
+            <!-- Add Tumbal Form (Hidden by default) -->
+            <div id="addTumbalForm" style="display: none; margin-bottom: 30px; background: rgba(0,0,0,0.3); padding: 25px; border-radius: 15px;">
+                <h3 style="color: #ffd700; margin-bottom: 20px;">Tambah Akun Tumbal Baru</h3>
+                <div class="setup-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="input-group">
+                        <label>User ID Free Fire</label>
+                        <input type="text" id="tumbalUserid" placeholder="Masukkan User ID" maxlength="12">
+                    </div>
+                    <div class="input-group">
+                        <label>Nickname</label>
+                        <input type="text" id="tumbalNickname" placeholder="Masukkan Nickname">
+                    </div>
+                    <div class="input-group">
+                        <label>Level</label>
+                        <input type="number" id="tumbalLevel" placeholder="Level akun" min="1" max="100">
+                    </div>
+                    <div class="input-group">
+                        <label>Mode Bermain</label>
+                        <select id="tumbalMode">
+                            <option value="ranked">Ranked Match</option>
+                            <option value="classic">Classic Match</option>
+                            <option value="cs">Clash Squad</option>
+                            <option value="mixed">Mixed (Otomatis)</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="add-tumbal-btn" onclick="addTumbalAccount()">SIMPAN AKUN</button>
+                    <button class="add-tumbal-btn" style="background: #666;" onclick="hideAddTumbalForm()">BATAL</button>
+                </div>
+            </div>
+
+            <!-- Tumbal Cards Grid -->
+            <div class="tumbal-grid" id="tumbalGrid">
+                <!-- Akan diisi dengan JavaScript -->
+            </div>
+        </div>
+
+        <!-- Auto Play Settings -->
+        <div id="settings" class="auto-play-section">
+            <h2 class="section-title"><span>⚙️ PENGATURAN AUTO PLAY</span></h2>
             
-            <div class="form-grid">
-                <div class="input-group">
-                    <label for="botUserid">User ID Free Fire</label>
-                    <input type="text" id="botUserid" placeholder="Masukkan User ID bot" maxlength="12">
+            <div class="settings-grid">
+                <div class="setting-card">
+                    <div class="setting-icon">⏰</div>
+                    <div class="setting-title">Jadwal Bermain</div>
+                    <div class="setting-options">
+                        <label class="setting-option">
+                            <input type="radio" name="schedule" value="24/7" checked> 24/7 Full Time
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="schedule" value="prime"> Prime Hours (19:00-23:00)
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="schedule" value="offpeak"> Off Peak (23:00-07:00)
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="schedule" value="custom"> Custom Schedule
+                        </label>
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="botNickname">Nickname Bot</label>
-                    <input type="text" id="botNickname" placeholder="Masukkan nickname bot">
+                <div class="setting-card">
+                    <div class="setting-icon">🎮</div>
+                    <div class="setting-title">Mode Permainan</div>
+                    <div class="setting-options">
+                        <label class="setting-option">
+                            <input type="radio" name="gamemode" value="ranked" checked> Ranked (Point Besar)
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="gamemode" value="classic"> Classic (Cepat)
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="gamemode" value="cs"> Clash Squad
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="gamemode" value="mixed"> Mixed (Otomatis)
+                        </label>
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="botLevel">Level Bot</label>
-                    <select id="botLevel">
-                        <option value="">Pilih Level</option>
-                        <option value="50-60">Level 50-60</option>
-                        <option value="61-70">Level 61-70</option>
-                        <option value="71-80">Level 71-80</option>
-                        <option value="80+">Level 80+</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="botRole">Role Bot</label>
-                    <select id="botRole">
-                        <option value="">Pilih Role</option>
-                        <option value="rusher">Rusher</option>
-                        <option value="support">Support</option>
-                        <option value="sniper">Sniper</option>
-                        <option value="flexible">Flexible</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="botStrategy">Push Strategy</label>
-                    <select id="botStrategy">
-                        <option value="aggressive">Aggressive (High Risk)</option>
-                        <option value="balanced">Balanced (Recommended)</option>
-                        <option value="safe">Safe Mode (Low Risk)</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="botSchedule">Schedule</label>
-                    <select id="botSchedule">
-                        <option value="24/7">24/7 Full Time</option>
-                        <option value="prime">Prime Hours (19:00-23:00)</option>
-                        <option value="off-peak">Off Peak (23:00-07:00)</option>
-                        <option value="custom">Custom Schedule</option>
-                    </select>
+                <div class="setting-card">
+                    <div class="setting-icon">🔄</div>
+                    <div class="setting-title">Rotasi Akun</div>
+                    <div class="setting-options">
+                        <label class="setting-option">
+                            <input type="radio" name="rotation" value="parallel" checked> Parallel (Semua)
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="rotation" value="sequential"> Sequential (Bergantian)
+                        </label>
+                        <label class="setting-option">
+                            <input type="radio" name="rotation" value="smart"> Smart Rotation
+                        </label>
+                    </div>
                 </div>
             </div>
 
-            <button class="btn" id="addBotBtn" onclick="addBot()">
-                <span id="addBotText">TAMBAH BOT AKUN</span>
-            </button>
-
-            <div id="botMessageBox" class="message-box"></div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="add-tumbal-btn" style="padding: 15px 40px;" onclick="startAllBots()">
+                    <span>▶️</span> MULAI SEMUA AKUN
+                </button>
+                <button class="add-tumbal-btn" style="background: #f44336; margin-left: 15px;" onclick="stopAllBots()">
+                    <span>⏹️</span> HENTIKAN SEMUA
+                </button>
+            </div>
         </div>
 
-        <!-- Push Activity -->
-        <div id="activity" class="push-activity">
-            <div class="activity-header">
-                <h2 class="activity-title">📊 REAL-TIME PUSH ACTIVITY</h2>
-                <div class="activity-filter">
-                    <button class="filter-btn active" onclick="filterActivity('all')">All</button>
-                    <button class="filter-btn" onclick="filterActivity('success')">Success</button>
-                    <button class="filter-btn" onclick="filterActivity('pending')">Pending</button>
+        <!-- Point History -->
+        <div id="history" class="point-history">
+            <div class="history-header">
+                <h2 class="history-title">📊 RIWAYAT POINT GUILD</h2>
+                <div class="history-filter">
+                    <button class="filter-btn active" onclick="filterHistory('all')">Semua</button>
+                    <button class="filter-btn" onclick="filterHistory('today')">Hari Ini</button>
+                    <button class="filter-btn" onclick="filterHistory('week')">Minggu Ini</button>
                 </div>
             </div>
 
-            <table class="activity-table">
+            <table class="history-table">
                 <thead>
                     <tr>
-                        <th>Time</th>
-                        <th>Bot Name</th>
-                        <th>Match Type</th>
-                        <th>Points Earned</th>
+                        <th>Waktu</th>
+                        <th>Akun Tumbal</th>
+                        <th>Mode</th>
+                        <th>Match</th>
+                        <th>Point</th>
                         <th>Status</th>
                     </tr>
                 </thead>
-                <tbody id="activityTable">
+                <tbody id="historyTable">
                     <!-- Akan diisi dengan JavaScript -->
                 </tbody>
             </table>
@@ -1056,286 +1000,359 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Tentang Guild Glory Bot</h3>
-                <p>Sistem bot akun otomatis untuk membantu guild mencapai ranking tertinggi di Free Fire dengan teknologi push point cerdas 24/7.</p>
+                <h3>Tentang Guild Point Booster</h3>
+                <p>Sistem otomatis penambah point guild Free Fire menggunakan akun tumbal yang bermain 24/7 untuk meningkatkan point guild tujuan.</p>
             </div>
             
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <p><a href="#dashboard">Dashboard</a></p>
-                <p><a href="#bots">Bot Akun</a></p>
-                <p><a href="#control">Control Panel</a></p>
-                <p><a href="#activity">Push Activity</a></p>
+                <p><a href="#setup">Setup Guild</a></p>
+                <p><a href="#tumbal">Akun Tumbal</a></p>
+                <p><a href="#settings">Pengaturan</a></p>
+                <p><a href="#history">Riwayat Point</a></p>
             </div>
             
             <div class="footer-section">
                 <h3>Support</h3>
-                <p>📧 support@guildglorybot.com</p>
+                <p>📧 support@guildbooster.com</p>
                 <p>📱 +62 812-3456-7890</p>
                 <p>💬 Live Chat 24/7</p>
             </div>
         </div>
         
         <div class="copyright">
-            <p>© 2024 Guild Glory Bot - Auto Push Point System for Free Fire Guilds</p>
-            <p style="margin-top: 10px; font-size: 0.8em;">This is an automated bot system for guild point farming in Free Fire</p>
+            <p>© 2024 Guild Point Booster - Free Fire Guild Point Auto System</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">⚠️ Gunakan dengan bijak dan resiko ditanggung pengguna</p>
         </div>
     </footer>
 
     <script>
-        // Data dummy untuk bot akun
-        const botAccounts = [
-            { id: 1, name: 'BotAlpha', level: 75, role: 'Rusher', points: 12500, status: 'active', userid: '1234567890' },
-            { id: 2, name: 'BotBeta', level: 72, role: 'Sniper', points: 10800, status: 'active', userid: '1234567891' },
-            { id: 3, name: 'BotGamma', level: 78, role: 'Support', points: 9500, status: 'idle', userid: '1234567892' },
-            { id: 4, name: 'BotDelta', level: 71, role: 'Flexible', points: 11200, status: 'active', userid: '1234567893' },
-            { id: 5, name: 'BotEpsilon', level: 74, role: 'Rusher', points: 9800, status: 'active', userid: '1234567894' },
-            { id: 6, name: 'BotZeta', level: 73, role: 'Sniper', points: 8900, status: 'idle', userid: '1234567895' }
+        // Data dummy untuk akun tumbal
+        let tumbalAccounts = [
+            { id: 1, userid: '1234567890', nickname: 'Tumbal_01', level: 65, mode: 'ranked', status: 'active', points: 3450, matches: 28 },
+            { id: 2, userid: '1234567891', nickname: 'Tumbal_02', level: 72, mode: 'ranked', status: 'active', points: 4200, matches: 35 },
+            { id: 3, userid: '1234567892', nickname: 'Tumbal_03', level: 58, mode: 'classic', status: 'idle', points: 2100, matches: 18 },
+            { id: 4, userid: '1234567893', nickname: 'Tumbal_04', level: 70, mode: 'cs', status: 'active', points: 3800, matches: 31 },
+            { id: 5, userid: '1234567894', nickname: 'Tumbal_05', level: 63, mode: 'ranked', status: 'idle', points: 2900, matches: 24 }
         ];
 
-        // Data dummy untuk push activity
-        const pushActivities = [
-            { time: '10:23', bot: 'BotAlpha', match: 'Ranked', points: 245, status: 'success' },
-            { time: '10:15', bot: 'BotBeta', match: 'Ranked', points: 198, status: 'success' },
-            { time: '10:08', bot: 'BotGamma', match: 'Classic', points: 156, status: 'success' },
-            { time: '09:55', bot: 'BotDelta', match: 'Ranked', points: 289, status: 'success' },
-            { time: '09:42', bot: 'BotEpsilon', match: 'Ranked', points: 0, status: 'pending' },
-            { time: '09:30', bot: 'BotZeta', match: 'Classic', points: 178, status: 'success' },
-            { time: '09:18', bot: 'BotAlpha', match: 'Ranked', points: 234, status: 'success' },
-            { time: '09:05', bot: 'BotBeta', match: 'Ranked', points: 267, status: 'success' }
+        // Data dummy untuk history point
+        let pointHistory = [
+            { time: '10:23', account: 'Tumbal_01', mode: 'Ranked', match: '#BR123', points: 245, status: 'success' },
+            { time: '10:15', account: 'Tumbal_02', mode: 'Ranked', match: '#BR124', points: 198, status: 'success' },
+            { time: '10:08', account: 'Tumbal_04', mode: 'CS', match: '#CS56', points: 156, status: 'success' },
+            { time: '09:55', account: 'Tumbal_01', mode: 'Ranked', match: '#BR125', points: 289, status: 'success' },
+            { time: '09:42', account: 'Tumbal_03', mode: 'Classic', match: '#CL78', points: 134, status: 'success' },
+            { time: '09:30', account: 'Tumbal_02', mode: 'Ranked', match: '#BR126', points: 267, status: 'success' },
+            { time: '09:18', account: 'Tumbal_05', mode: 'Ranked', match: '#BR127', points: 178, status: 'success' }
         ];
+
+        // Target guild
+        let targetGuild = {
+            id: '',
+            name: '',
+            targetPoints: 5000,
+            currentPoints: 0
+        };
 
         // Load data saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
-            loadBotList();
-            loadActivityTable();
+            loadTumbalAccounts();
+            loadHistoryTable();
             startRealTimeSimulation();
+            loadSavedTarget();
         });
 
-        // Fungsi memuat daftar bot
-        function loadBotList() {
-            const botList = document.getElementById('botList');
-            botList.innerHTML = '';
-            
-            botAccounts.forEach(bot => {
-                const botItem = document.createElement('div');
-                botItem.className = 'bot-item';
-                botItem.innerHTML = `
-                    <div style="display: flex; align-items: center; flex: 1;">
-                        <div class="bot-avatar">${bot.name.charAt(0)}</div>
-                        <div class="bot-details">
-                            <div class="bot-name">${bot.name}</div>
-                            <div class="bot-meta">
-                                <span>Lv.${bot.level}</span>
-                                <span>${bot.role}</span>
-                                <span>ID: ${bot.userid}</span>
-                            </div>
+        // Fungsi memuat akun tumbal
+        function loadTumbalAccounts() {
+            const grid = document.getElementById('tumbalGrid');
+            grid.innerHTML = '';
+
+            tumbalAccounts.forEach(account => {
+                const card = document.createElement('div');
+                card.className = `tumbal-card ${account.status === 'active' ? 'active' : ''}`;
+                card.innerHTML = `
+                    <div class="tumbal-avatar">👤</div>
+                    <div class="tumbal-name">${account.nickname}</div>
+                    <div class="tumbal-id">ID: ${account.userid}</div>
+                    <div class="tumbal-stats">
+                        <div class="tumbal-stat">
+                            <span class="value">${account.level}</span>
+                            <span class="label">Level</span>
+                        </div>
+                        <div class="tumbal-stat">
+                            <span class="value">${account.points}</span>
+                            <span class="label">Points</span>
+                        </div>
+                        <div class="tumbal-stat">
+                            <span class="value">${account.matches}</span>
+                            <span class="label">Matches</span>
                         </div>
                     </div>
-                    <div style="text-align: right; margin-right: 15px;">
-                        <span class="bot-points">${bot.points.toLocaleString()} pts</span>
-                        <div style="font-size: 0.8em; color: ${bot.status === 'active' ? '#10b981' : '#f59e0b'}">
-                            ${bot.status === 'active' ? '● Active' : '○ Idle'}
-                        </div>
+                    <div class="tumbal-status">
+                        <span class="status-indicator ${account.status === 'active' ? '' : 'idle'}"></span>
+                        <span class="status-text">${account.status === 'active' ? 'Sedang bermain' : 'Idle'}</span>
                     </div>
-                    <button class="bot-action" onclick="toggleBot(${bot.id})" ${bot.status === 'active' ? 'disabled' : ''}>
-                        ${bot.status === 'active' ? 'Running' : 'Start'}
-                    </button>
+                    <div class="tumbal-actions">
+                        <button class="tumbal-btn btn-start" onclick="toggleAccount(${account.id})" ${account.status === 'active' ? 'style="display:none;"' : ''}>
+                            ▶ Mulai
+                        </button>
+                        <button class="tumbal-btn btn-stop" onclick="toggleAccount(${account.id})" ${account.status === 'idle' ? 'style="display:none;"' : ''}>
+                            ⏹ Stop
+                        </button>
+                        <button class="tumbal-btn btn-delete" onclick="deleteAccount(${account.id})">🗑 Hapus</button>
+                    </div>
                 `;
-                botList.appendChild(botItem);
+                grid.appendChild(card);
             });
+
+            // Update total tumbal
+            document.getElementById('totalTumbal').textContent = tumbalAccounts.length;
+            document.getElementById('activeTumbal').textContent = tumbalAccounts.filter(a => a.status === 'active').length;
         }
 
-        // Fungsi memuat activity table
-        function loadActivityTable(filter = 'all') {
-            const tbody = document.getElementById('activityTable');
+        // Fungsi memuat history table
+        function loadHistoryTable(filter = 'all') {
+            const tbody = document.getElementById('historyTable');
             tbody.innerHTML = '';
-            
-            let filtered = pushActivities;
-            if (filter !== 'all') {
-                filtered = pushActivities.filter(a => a.status === filter);
+
+            let filtered = pointHistory;
+            if (filter === 'today') {
+                filtered = pointHistory.slice(0, 5);
+            } else if (filter === 'week') {
+                filtered = pointHistory;
             }
-            
-            filtered.forEach(activity => {
+
+            filtered.forEach(history => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${activity.time}</td>
-                    <td>${activity.bot}</td>
-                    <td>${activity.match}</td>
-                    <td style="color: #667eea; font-weight: 600;">+${activity.points}</td>
-                    <td><span class="badge-${activity.status === 'success' ? 'success' : 'warning'}">${activity.status}</span></td>
+                    <td>${history.time}</td>
+                    <td>${history.account}</td>
+                    <td>${history.mode}</td>
+                    <td>${history.match}</td>
+                    <td class="point-positive">+${history.points}</td>
+                    <td><span style="color: #4CAF50;">✓ Berhasil</span></td>
                 `;
                 tbody.appendChild(row);
             });
         }
 
-        // Simulasi real-time
-        function startRealTimeSimulation() {
-            // Update total bots
-            setInterval(() => {
-                const totalBots = document.getElementById('totalBots');
-                const activePushes = document.getElementById('activePushes');
-                const totalPoints = document.getElementById('totalPoints');
-                const activeBotsCount = document.getElementById('activeBotsCount');
-                
-                // Random updates
-                const random = Math.floor(Math.random() * 5);
-                const currentBots = parseInt(totalBots.innerText);
-                const currentActive = parseInt(activePushes.innerText);
-                const currentPoints = parseFloat(totalPoints.innerText.replace('K', ''));
-                
-                totalBots.innerText = currentBots + (random % 2);
-                activePushes.innerText = currentActive + (random % 3) - 1;
-                totalPoints.innerText = (currentPoints + (Math.random() * 0.5)).toFixed(1) + 'K';
-                activeBotsCount.innerText = `${parseInt(activePushes.innerText)} / ${totalBots.innerText}`;
-                
-            }, 8000);
+        // Fungsi set target guild
+        function setTargetGuild() {
+            const guildId = document.getElementById('targetGuildId').value.trim();
+            const guildName = document.getElementById('targetGuildName').value.trim();
+            const targetPoints = document.getElementById('targetPoints').value;
+
+            if (!guildId) {
+                showMessage('Masukkan ID Guild tujuan!', 'error');
+                return;
+            }
+
+            if (guildId.length < 8 || !/^\d+$/.test(guildId)) {
+                showMessage('ID Guild tidak valid! Harus 8-12 digit angka.', 'error');
+                return;
+            }
+
+            targetGuild = {
+                id: guildId,
+                name: guildName || 'Guild Tujuan',
+                targetPoints: parseInt(targetPoints) || 5000,
+                currentPoints: Math.floor(Math.random() * 2000) + 1000
+            };
+
+            // Update preview
+            document.getElementById('previewName').textContent = targetGuild.name;
+            document.getElementById('previewId').textContent = `ID: ${targetGuild.id}`;
+            document.getElementById('previewTarget').textContent = targetGuild.targetPoints.toLocaleString();
+            document.getElementById('previewCurrent').textContent = targetGuild.currentPoints.toLocaleString();
+
+            // Simpan ke localStorage
+            localStorage.setItem('targetGuild', JSON.stringify(targetGuild));
+
+            showMessage('✅ Guild tujuan berhasil disimpan!', 'success');
         }
 
-        // Fungsi menambah bot
-        function addBot() {
-            const userid = document.getElementById('botUserid').value.trim();
-            const nickname = document.getElementById('botNickname').value.trim();
-            const level = document.getElementById('botLevel').value;
-            const role = document.getElementById('botRole').value;
-            const strategy = document.getElementById('botStrategy').value;
-            const schedule = document.getElementById('botSchedule').value;
-            const addBtn = document.getElementById('addBotBtn');
-            const btnText = document.getElementById('addBotText');
+        // Fungsi load saved target
+        function loadSavedTarget() {
+            const saved = localStorage.getItem('targetGuild');
+            if (saved) {
+                targetGuild = JSON.parse(saved);
+                document.getElementById('targetGuildId').value = targetGuild.id;
+                document.getElementById('targetGuildName').value = targetGuild.name;
+                document.getElementById('targetPoints').value = targetGuild.targetPoints;
+                
+                document.getElementById('previewName').textContent = targetGuild.name;
+                document.getElementById('previewId').textContent = `ID: ${targetGuild.id}`;
+                document.getElementById('previewTarget').textContent = targetGuild.targetPoints.toLocaleString();
+                document.getElementById('previewCurrent').textContent = targetGuild.currentPoints.toLocaleString();
+            }
+        }
 
-            // Validasi
-            if (!userid || !nickname || !level || !role) {
-                showBotMessage('Harap lengkapi semua data bot!', 'error');
+        // Fungsi menambah akun tumbal
+        function addTumbalAccount() {
+            const userid = document.getElementById('tumbalUserid').value.trim();
+            const nickname = document.getElementById('tumbalNickname').value.trim();
+            const level = document.getElementById('tumbalLevel').value;
+            const mode = document.getElementById('tumbalMode').value;
+
+            if (!userid || !nickname || !level) {
+                showMessage('Harap lengkapi semua data!', 'error');
                 return;
             }
 
             if (userid.length < 8 || !/^\d+$/.test(userid)) {
-                showBotMessage('User ID tidak valid! Harus 8-12 digit angka.', 'error');
+                showMessage('User ID tidak valid!', 'error');
                 return;
             }
 
-            // Simulasi proses
-            addBtn.disabled = true;
-            btnText.innerHTML = '<span class="spinner"></span> MENAMBAHKAN BOT...';
+            const newAccount = {
+                id: tumbalAccounts.length + 1,
+                userid: userid,
+                nickname: nickname,
+                level: parseInt(level),
+                mode: mode,
+                status: 'idle',
+                points: 0,
+                matches: 0
+            };
 
-            setTimeout(() => {
-                // Simpan ke localStorage
-                const bots = JSON.parse(localStorage.getItem('guildBotAccounts') || '[]');
-                bots.push({
-                    userid: userid,
-                    nickname: nickname,
-                    level: level,
-                    role: role,
-                    strategy: strategy,
-                    schedule: schedule,
-                    points: 0,
-                    status: 'idle',
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('guildBotAccounts', JSON.stringify(bots));
+            tumbalAccounts.push(newAccount);
+            loadTumbalAccounts();
+            hideAddTumbalForm();
 
-                showBotMessage(`
-                    ✅ BOT AKUN BERHASIL DITAMBAHKAN!<br><br>
-                    Nickname: ${nickname}<br>
-                    User ID: ${userid}<br>
-                    Role: ${role}<br>
-                    Strategy: ${strategy}<br><br>
-                    ⚡ Bot akan aktif dalam 5 menit
-                `, 'success');
+            // Reset form
+            document.getElementById('tumbalUserid').value = '';
+            document.getElementById('tumbalNickname').value = '';
+            document.getElementById('tumbalLevel').value = '';
 
-                // Reset form
-                setTimeout(() => {
-                    document.getElementById('botUserid').value = '';
-                    document.getElementById('botNickname').value = '';
-                    document.getElementById('botLevel').value = '';
-                    document.getElementById('botRole').value = '';
-                    addBtn.disabled = false;
-                    btnText.innerHTML = 'TAMBAH BOT AKUN';
-                }, 3000);
-
-            }, 2000);
+            showMessage(`✅ Akun tumbal ${nickname} berhasil ditambahkan!`, 'success');
         }
 
-        // Fungsi toggle bot
-        function toggleBot(botId) {
-            const bot = botAccounts.find(b => b.id === botId);
-            if (bot) {
-                bot.status = bot.status === 'active' ? 'idle' : 'active';
-                loadBotList();
-                showBotMessage(`Bot ${bot.name} ${bot.status === 'active' ? 'diaktifkan' : 'dihentikan'}!`, 'info');
+        // Fungsi toggle akun (start/stop)
+        function toggleAccount(id) {
+            const account = tumbalAccounts.find(a => a.id === id);
+            if (account) {
+                account.status = account.status === 'active' ? 'idle' : 'active';
+                loadTumbalAccounts();
+                
+                const action = account.status === 'active' ? 'dimulai' : 'dihentikan';
+                showMessage(`Akun ${account.nickname} ${action}`, 'info');
             }
         }
 
-        // Fungsi set strategy
-        function setStrategy(strategy) {
-            document.querySelectorAll('.strategy-option').forEach(opt => {
-                opt.classList.remove('active');
+        // Fungsi hapus akun
+        function deleteAccount(id) {
+            if (confirm('Yakin ingin menghapus akun ini?')) {
+                tumbalAccounts = tumbalAccounts.filter(a => a.id !== id);
+                loadTumbalAccounts();
+                showMessage('Akun berhasil dihapus', 'info');
+            }
+        }
+
+        // Fungsi start all bots
+        function startAllBots() {
+            tumbalAccounts.forEach(account => {
+                account.status = 'active';
             });
-            event.target.closest('.strategy-option').classList.add('active');
-            
-            const strategies = {
-                aggressive: 'Aggressive Mode: High risk, high reward',
-                balanced: 'Balanced Mode: Medium risk, stable points',
-                safe: 'Safe Mode: Low risk, consistent points'
-            };
-            
-            showBotMessage(`✅ Strategy changed to ${strategies[strategy]}`, 'info');
+            loadTumbalAccounts();
+            showMessage('✅ Semua akun dimulai', 'success');
         }
 
-        // Fungsi control bot
-        function controlBot(action) {
-            const actions = {
-                'start-all': 'Semua bot akan diaktifkan',
-                'stop-all': 'Semua bot akan dihentikan',
-                'restart-all': 'System restart in progress',
-                'priority': 'Priority mode activated',
-                'schedule': 'Auto scheduler configured',
-                'report': 'Generating report...'
-            };
-            
-            showBotMessage(`✅ ${actions[action]}`, 'info');
+        // Fungsi stop all bots
+        function stopAllBots() {
+            tumbalAccounts.forEach(account => {
+                account.status = 'idle';
+            });
+            loadTumbalAccounts();
+            showMessage('⏹️ Semua akun dihentikan', 'info');
         }
 
-        // Fungsi filter activity
-        function filterActivity(filter) {
+        // Fungsi show/hide form
+        function showAddTumbalForm() {
+            document.getElementById('addTumbalForm').style.display = 'block';
+        }
+
+        function hideAddTumbalForm() {
+            document.getElementById('addTumbalForm').style.display = 'none';
+        }
+
+        // Fungsi filter history
+        function filterHistory(filter) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
-            loadActivityTable(filter);
+            loadHistoryTable(filter);
+        }
+
+        // Simulasi real-time
+        function startRealTimeSimulation() {
+            setInterval(() => {
+                // Update point hari ini
+                const todayPoints = document.getElementById('todayPoints');
+                const currentPoints = parseFloat(todayPoints.textContent.replace('K', ''));
+                const newPoints = currentPoints + (Math.random() * 0.5);
+                todayPoints.textContent = newPoints.toFixed(1) + 'K';
+
+                // Update total jam
+                const totalHours = document.getElementById('totalHours');
+                const currentHours = parseInt(totalHours.textContent);
+                totalHours.textContent = currentHours + Math.floor(Math.random() * 2);
+
+                // Update current points guild jika ada target
+                if (targetGuild.id) {
+                    targetGuild.currentPoints += Math.floor(Math.random() * 50) + 20;
+                    document.getElementById('previewCurrent').textContent = targetGuild.currentPoints.toLocaleString();
+                }
+
+                // Random tambah history baru
+                if (Math.random() > 0.7) {
+                    const activeAccounts = tumbalAccounts.filter(a => a.status === 'active');
+                    if (activeAccounts.length > 0) {
+                        const randomAccount = activeAccounts[Math.floor(Math.random() * activeAccounts.length)];
+                        const newHistory = {
+                            time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                            account: randomAccount.nickname,
+                            mode: randomAccount.mode === 'ranked' ? 'Ranked' : 'Classic',
+                            match: '#' + (randomAccount.mode === 'ranked' ? 'BR' : 'CL') + Math.floor(Math.random() * 200),
+                            points: Math.floor(Math.random() * 150) + 100,
+                            status: 'success'
+                        };
+                        pointHistory.unshift(newHistory);
+                        if (pointHistory.length > 20) pointHistory.pop();
+                        loadHistoryTable();
+                    }
+                }
+            }, 8000);
         }
 
         // Fungsi menampilkan pesan
-        function showBotMessage(text, type) {
-            const messageBox = document.getElementById('botMessageBox');
-            messageBox.className = 'message-box ' + type;
-            messageBox.innerHTML = text;
-            
-            if (type === 'error') {
+        function showMessage(text, type) {
+            const messageBox = document.getElementById('joinMessageBox');
+            if (!messageBox) {
+                // Buat message box sementara jika belum ada
+                const tempBox = document.createElement('div');
+                tempBox.className = `message-box ${type}`;
+                tempBox.innerHTML = text;
+                tempBox.style.position = 'fixed';
+                tempBox.style.top = '100px';
+                tempBox.style.right = '20px';
+                tempBox.style.zIndex = '9999';
+                tempBox.style.maxWidth = '300px';
+                document.body.appendChild(tempBox);
+                
+                setTimeout(() => {
+                    tempBox.remove();
+                }, 5000);
+            } else {
+                messageBox.className = 'message-box ' + type;
+                messageBox.innerHTML = text;
+                
                 setTimeout(() => {
                     messageBox.style.display = 'none';
                 }, 5000);
             }
         }
-
-        // Smooth scroll
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
     </script>
 </body>
 </html>
